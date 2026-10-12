@@ -1,0 +1,248 @@
+@page
+@model Dorm.Pages.Admin.FinancialsModel
+@{
+    ViewData["Title"] = "Financial Reports & Revenue";
+}
+
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+        <div>
+            <span class="text-uppercase text-xs fw-bold tracking-wider text-warning">Financial Accounting</span>
+            <h1 class="h2 fw-bold text-white mb-1">Revenue & Transaction Log</h1>
+            <p class="text-secondary mb-0">Monitor cash flow, review gateway/e-wallet settlements, and record over-the-counter payments.</p>
+        </div>
+        <button type="button" class="btn btn-primary-gradient shadow-sm" data-bs-toggle="modal" data-bs-target="#recordPaymentModal">
+            <i class="bi bi-receipt me-2"></i>Record Walk-in Payment
+        </button>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div class="alert @(Model.StatusMessageType == "error" ? "alert-danger bg-danger text-white border-0" : "alert-success bg-success text-white border-0") alert-dismissible fade show shadow-lg mb-4" role="alert">
+            @Model.StatusMessage
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Financial KPIs -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-4">
+            <div class="glass-card p-4">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <span class="text-secondary small fw-semibold">TOTAL ALL-TIME REVENUE</span>
+                    <div class="kpi-icon bg-warning bg-opacity-25 text-warning">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+                </div>
+                <div class="h2 fw-bold text-white mb-1">
+                    ₱@(Model.Summary?.TotalRevenue.ToString("N2") ?? "0.00")
+                </div>
+                <span class="text-success small fw-medium"><i class="bi bi-graph-up me-1"></i>Cumulative rent & fees collected</span>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-4">
+            <div class="glass-card p-4">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <span class="text-secondary small fw-semibold">THIS MONTH REVENUE</span>
+                    <div class="kpi-icon bg-success bg-opacity-25 text-success">
+                        <i class="bi bi-calendar2-check"></i>
+                    </div>
+                </div>
+                <div class="h2 fw-bold text-success mb-1">
+                    ₱@(Model.Summary?.ThisMonthRevenue.ToString("N2") ?? "0.00")
+                </div>
+                <span class="text-secondary small">Current billing cycle collections</span>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-4">
+            <div class="glass-card p-4">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <span class="text-secondary small fw-semibold">TOTAL TRANSACTIONS</span>
+                    <div class="kpi-icon bg-info bg-opacity-25 text-info">
+                        <i class="bi bi-receipt-cutoff"></i>
+                    </div>
+                </div>
+                <div class="h2 fw-bold text-white mb-1">
+                    @(Model.Summary?.TotalTransactions ?? 0)
+                </div>
+                <span class="text-secondary small">Logged payment entries</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue Breakdown by Payment Method -->
+    @if (Model.Summary?.RevenueByMethod != null && Model.Summary.RevenueByMethod.Count > 0)
+    {
+        <div class="glass-card p-4 mb-4">
+            <h5 class="text-white fw-bold mb-3"><i class="bi bi-pie-chart me-2 text-warning"></i>Revenue by Payment Method</h5>
+            <div class="row g-3">
+                @foreach (var method in Model.Summary.RevenueByMethod)
+                {
+                    var percent = Model.Summary.TotalRevenue > 0 ? (method.Value / Model.Summary.TotalRevenue) * 100 : 0;
+                    <div class="col-sm-6 col-md-3">
+                        <div class="p-3 rounded bg-black bg-opacity-40 border border-secondary border-opacity-25">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="text-light fw-medium">@method.Key</span>
+                                <span class="badge bg-secondary">@percent.ToString("0.0")%</span>
+                            </div>
+                            <div class="h4 fw-bold text-warning mb-2">₱@method.Value.ToString("N0")</div>
+                            <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.1);">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: @percent%"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <!-- Filters & Transaction History -->
+    <div class="glass-card p-3 mb-4">
+        <form method="get" class="row g-3 align-items-center">
+            <div class="col-md-4">
+                <label class="text-secondary fw-semibold small mb-1">Payment Method</label>
+                <select name="PaymentMethodFilter" class="form-select form-select-dorm" onchange="this.form.submit()">
+                    <option value="">All Payment Methods</option>
+                    <option value="GCash" selected="@(Model.PaymentMethodFilter == "GCash")">GCash</option>
+                    <option value="Maya" selected="@(Model.PaymentMethodFilter == "Maya")">Maya</option>
+                    <option value="Bank Transfer" selected="@(Model.PaymentMethodFilter == "Bank Transfer")">Bank Transfer</option>
+                    <option value="Cash" selected="@(Model.PaymentMethodFilter == "Cash")">Cash (Walk-in)</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="text-secondary fw-semibold small mb-1">Status</label>
+                <select name="StatusFilter" class="form-select form-select-dorm" onchange="this.form.submit()">
+                    <option value="">All Statuses</option>
+                    <option value="Completed" selected="@(Model.StatusFilter == "Completed")">Completed</option>
+                    <option value="Pending" selected="@(Model.StatusFilter == "Pending")">Pending</option>
+                    <option value="Failed" selected="@(Model.StatusFilter == "Failed")">Failed</option>
+                </select>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <a asp-page="/Admin/Financials" class="btn btn-outline-secondary w-100">Reset Filters</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Payments Table -->
+    <div class="glass-card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="text-white fw-bold mb-0">Transaction History (@Model.Payments.Count records)</h5>
+        </div>
+
+        @if (Model.Payments.Count == 0)
+        {
+            <div class="text-center py-5">
+                <i class="bi bi-wallet text-secondary" style="font-size: 3rem;"></i>
+                <h4 class="text-white mt-3">No transactions found</h4>
+                <p class="text-secondary">No payment entries match the selected filters.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-dorm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date & Time</th>
+                            <th>Tenant Name</th>
+                            <th>Room / Dormitory</th>
+                            <th>Method</th>
+                            <th>Reference No.</th>
+                            <th>Amount Paid</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var payment in Model.Payments.OrderByDescending(p => p.PaymentDate))
+                        {
+                            <tr>
+                                <td class="text-muted fw-bold">#TX-@payment.PaymentId.ToString("D4")</td>
+                                <td>
+                                    <div class="text-white">@payment.PaymentDate.ToString("MMM dd, yyyy")</div>
+                                    <div class="small text-muted">@payment.PaymentDate.ToString("hh:mm tt")</div>
+                                </td>
+                                <td>
+                                    <div class="fw-semibold text-white">@payment.TenantName</div>
+                                    <div class="small text-muted">Lease #@payment.LeaseId</div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-dark border border-secondary text-light">@payment.RoomNumber</span>
+                                    <div class="small text-muted mt-1">@payment.DormitoryName</div>
+                                </td>
+                                <td>
+                                    <span class="badge @(payment.PaymentMethod == "GCash" ? "bg-primary" : payment.PaymentMethod == "Maya" ? "bg-success" : payment.PaymentMethod == "Cash" ? "bg-secondary" : "bg-info")">
+                                        @payment.PaymentMethod
+                                    </span>
+                                </td>
+                                <td>
+                                    <code class="text-light">@(string.IsNullOrEmpty(payment.ReferenceNumber) ? "N/A" : payment.ReferenceNumber)</code>
+                                </td>
+                                <td class="text-success fw-bold h6 mb-0">₱@payment.AmountPaid.ToString("N2")</td>
+                                <td>
+                                    <span class="badge badge-status @(payment.Status == "Completed" ? "badge-available" : payment.Status == "Pending" ? "badge-pending" : "badge-occupied")">
+                                        @payment.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Modal: Record Walk-in Payment -->
+<div class="modal fade" id="recordPaymentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card border border-warning">
+            <div class="modal-header border-bottom border-secondary border-opacity-25">
+                <div>
+                    <h5 class="modal-title text-white fw-bold">Record Walk-in Payment</h5>
+                    <p class="text-secondary small mb-0">Manually issue payment receipt for a tenant lease.</p>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" asp-page-handler="RecordPayment">
+                <div class="modal-body text-secondary">
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-medium">Active Lease / Tenant <span class="text-danger">*</span></label>
+                        <select asp-for="NewPayment.LeaseId" class="form-select form-select-dorm" required>
+                            <option value="">-- Select Active Lease --</option>
+                            @foreach (var l in Model.ActiveLeases)
+                            {
+                                <option value="@l.LeaseId">Lease #@l.LeaseId - @l.TenantName (Room @l.RoomNumber - Rate: ₱@l.MonthlyRate.ToString("N0"))</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-medium">Amount Paid (₱) <span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" min="1" asp-for="NewPayment.AmountPaid" class="form-control form-control-dorm" placeholder="5000.00" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-medium">Payment Method <span class="text-danger">*</span></label>
+                        <select asp-for="NewPayment.PaymentMethod" class="form-select form-select-dorm" required>
+                            <option value="Cash">Cash (Over-the-Counter)</option>
+                            <option value="GCash">GCash</option>
+                            <option value="Maya">Maya</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-medium">Reference Number (Optional)</label>
+                        <input type="text" asp-for="NewPayment.ReferenceNumber" class="form-control form-control-dorm" placeholder="e.g. OR-2026-0042 or Ref #1234" />
+                    </div>
+                </div>
+                <div class="modal-footer border-top border-secondary border-opacity-25">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary-gradient">Save & Record Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

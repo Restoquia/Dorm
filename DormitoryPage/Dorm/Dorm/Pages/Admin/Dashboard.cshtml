@@ -1,0 +1,184 @@
+@page
+@model Dorm.Pages.Admin.DashboardModel
+@{
+    ViewData["Title"] = "Executive Dashboard";
+}
+
+<div class="container-fluid px-lg-5 py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+        <div>
+            <span class="text-uppercase text-xs fw-bold tracking-wider" style="color: #818cf8;">Admin Console</span>
+            <h1 class="h2 fw-bold text-white mb-1">Executive Dashboard</h1>
+            <p class="text-secondary mb-0">Consolidated operational overview for dormitory proprietors and administrators.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-page="/Admin/Reservations" class="btn btn-glass"><i class="bi bi-calendar2-check me-1"></i> Reservations</a>
+            <a asp-page="/Admin/Financials" class="btn btn-emerald-gradient"><i class="bi bi-cash-stack me-1"></i> Financial Reports</a>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-warning border-0 shadow mb-4">@Model.ErrorMessage</div>
+    }
+
+    @if (Model.Stats != null)
+    {
+        var s = Model.Stats;
+        <!-- KPI Metrics Grid -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-sm-4 col-lg-2">
+                <div class="kpi-card" style="--kpi-accent: #6366f1;">
+                    <div class="kpi-title">Dormitories</div>
+                    <div class="kpi-value">@s.TotalDormitories</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-lg-2">
+                <div class="kpi-card" style="--kpi-accent: #06b6d4;">
+                    <div class="kpi-title">Total Rooms</div>
+                    <div class="kpi-value">@s.TotalRooms</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-lg-2">
+                <div class="kpi-card" style="--kpi-accent: #10b981;">
+                    <div class="kpi-title">Available</div>
+                    <div class="kpi-value" style="color: #34d399;">@s.AvailableRooms</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-lg-2">
+                <div class="kpi-card" style="--kpi-accent: #f43f5e;">
+                    <div class="kpi-title">Occupied</div>
+                    <div class="kpi-value" style="color: #fb7185;">@s.OccupiedRooms</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-lg-2">
+                <div class="kpi-card" style="--kpi-accent: #f59e0b;">
+                    <div class="kpi-title">Occupancy Rate</div>
+                    <div class="kpi-value" style="color: #fbbf24;">@s.OverallOccupancyRate.ToString("0.0")%</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-lg-2">
+                <div class="kpi-card" style="--kpi-accent: #d946ef;">
+                    <div class="kpi-title">Active Leases</div>
+                    <div class="kpi-value" style="color: #e879f9;">@s.ActiveLeases</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue & Action Metrics -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card p-4 h-100">
+                    <i class="bi bi-cash-coin text-success fs-3 mb-2 d-block"></i>
+                    <div class="text-secondary small fw-semibold text-uppercase" style="font-size: 0.7rem;">Total Revenue</div>
+                    <div class="text-white fw-bold fs-3">₱@s.TotalRevenue.ToString("N0")</div>
+                    <small class="text-muted">All-time collections</small>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card p-4 h-100">
+                    <i class="bi bi-graph-up-arrow text-info fs-3 mb-2 d-block"></i>
+                    <div class="text-secondary small fw-semibold text-uppercase" style="font-size: 0.7rem;">This Month</div>
+                    <div class="text-white fw-bold fs-3">₱@s.ThisMonthRevenue.ToString("N0")</div>
+                    <small class="text-muted">@DateTime.UtcNow.ToString("MMMM yyyy") collections</small>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card p-4 h-100">
+                    <i class="bi bi-people text-primary fs-3 mb-2 d-block"></i>
+                    <div class="text-secondary small fw-semibold text-uppercase" style="font-size: 0.7rem;">Total Tenants</div>
+                    <div class="text-white fw-bold fs-3">@s.TotalTenants</div>
+                    <small class="text-muted">Registered occupants</small>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card p-4 h-100">
+                    <i class="bi bi-exclamation-triangle text-warning fs-3 mb-2 d-block"></i>
+                    <div class="text-secondary small fw-semibold text-uppercase" style="font-size: 0.7rem;">Pending Actions</div>
+                    <div class="text-white fw-bold fs-3">@(s.PendingReservations + s.PendingMaintenanceRequests)</div>
+                    <small class="text-muted">@s.PendingReservations reservations + @s.PendingMaintenanceRequests maintenance</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Recent Payments -->
+            <div class="col-lg-7">
+                <div class="glass-card p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="text-white fw-bold mb-0"><i class="bi bi-receipt text-success me-2"></i> Recent Payments</h5>
+                        <a asp-page="/Admin/Financials" class="btn btn-sm btn-glass">View All</a>
+                    </div>
+                    @if (s.RecentPayments.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-dorm table-sm mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Tenant</th>
+                                        <th>Room</th>
+                                        <th>Method</th>
+                                        <th>Date</th>
+                                        <th class="text-end">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var p in s.RecentPayments.Take(5))
+                                    {
+                                        <tr>
+                                            <td class="fw-semibold text-white">@p.TenantName</td>
+                                            <td>@p.RoomNumber</td>
+                                            <td><span class="badge bg-dark border border-secondary">@p.PaymentMethod</span></td>
+                                            <td class="text-muted">@p.PaymentDate.ToString("MMM dd")</td>
+                                            <td class="text-end fw-bold text-success">₱@p.AmountPaid.ToString("N0")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-secondary small">No recent payments.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Right Column: Available Rooms & Maintenance -->
+            <div class="col-lg-5">
+                <!-- Maintenance -->
+                <div class="glass-card p-4 mb-4">
+                    <h5 class="text-white fw-bold mb-3"><i class="bi bi-tools text-danger me-2"></i> Maintenance Alerts</h5>
+                    @if (s.RecentMaintenanceRequests.Count > 0)
+                    {
+                        @foreach (var req in s.RecentMaintenanceRequests)
+                        {
+                            <div class="d-flex justify-content-between align-items-start py-2 border-bottom border-secondary border-opacity-25">
+                                <div>
+                                    <div class="text-white small fw-semibold">@req.RoomNumber — @req.RequesterName</div>
+                                    <small class="text-muted">@(req.IssueDescription.Length > 60 ? req.IssueDescription[..60] + "..." : req.IssueDescription)</small>
+                                </div>
+                                <span class="badge badge-status @(req.Status == "In Progress" ? "badge-maintenance" : "badge-pending")">@req.Status</span>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-secondary small mb-0">No pending maintenance requests.</p>
+                    }
+                </div>
+
+                <!-- Quick Links -->
+                <div class="glass-card p-4">
+                    <h5 class="text-white fw-bold mb-3"><i class="bi bi-lightning-charge text-warning me-2"></i> Quick Actions</h5>
+                    <div class="d-flex flex-column gap-2">
+                        <a asp-page="/Admin/Rooms" class="btn btn-glass w-100 text-start"><i class="bi bi-houses me-2 text-info"></i> Manage Room Inventory</a>
+                        <a asp-page="/Admin/Reservations" class="btn btn-glass w-100 text-start"><i class="bi bi-calendar2-check me-2 text-warning"></i> Process Reservations Queue</a>
+                        <a asp-page="/Admin/Leases" class="btn btn-glass w-100 text-start"><i class="bi bi-file-earmark-text me-2 text-secondary"></i> View Active Leases</a>
+                        <a href="http://localhost:5210/swagger" target="_blank" class="btn btn-glass w-100 text-start"><i class="bi bi-code-slash me-2 text-info"></i> Open Swagger API Docs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

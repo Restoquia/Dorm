@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boarding House Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">🏠</div>
+            <div>
+                <div class="brand-title">BoardingHouse MS</div>
+                <div class="brand-subtitle">Property & Rent Portal</div>
+            </div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item active">
+                <button onclick="switchTab('dashboard')">
+                    <span>📊</span> Dashboard
+                </button>
+            </li>
+            <li class="nav-item">
+                <button onclick="switchTab('available-rooms')">
+                    <span>🛏️</span> Available Rooms
+                </button>
+            </li>
+            <li class="nav-item">
+                <button onclick="switchTab('all-rooms')">
+                    <span>🚪</span> All Rooms
+                </button>
+            </li>
+            <li class="nav-item">
+                <button onclick="switchTab('payments')">
+                    <span>💳</span> Pay Rent & Payments
+                </button>
+            </li>
+            <li class="nav-item">
+                <button onclick="switchTab('leases')">
+                    <span>📜</span> Leases & Check-Ins
+                </button>
+            </li>
+            <li class="nav-item">
+                <button onclick="switchTab('reservations')">
+                    <span>📅</span> Reservations
+                </button>
+            </li>
+            <li class="nav-item">
+                <button onclick="switchTab('maintenance')">
+                    <span>🛠️</span> Maintenance
+                </button>
+            </li>
+            <li class="nav-item">
+                <button onclick="switchTab('dormitories')">
+                    <span>🏢</span> Dormitories
+                </button>
+            </li>
+            <li class="nav-item">
+                <button onclick="switchTab('tenants')">
+                    <span>👥</span> Tenants / Users
+                </button>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <a href="/swagger" target="_blank" class="swagger-link">
+                <span>⚡</span> Open Swagger API Docs
+            </a>
+            <button class="btn btn-outline btn-sm" onclick="seedSampleData()" style="width: 100%;">
+                🔄 Reseed Demo Data
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <h1 class="page-title" id="page-heading">Dashboard Overview</h1>
+            <div class="top-actions">
+                <button class="btn btn-success" onclick="openPayRentModal()">
+                    <span>💰</span> Pay Rent
+                </button>
+                <button class="btn btn-primary" onclick="openNewLeaseModal()">
+                    <span>➕</span> Check-In Tenant
+                </button>
+            </div>
+        </header>
+
+        <main class="content-container">
+
+            <!-- 1. DASHBOARD TAB -->
+            <section id="tab-dashboard" class="tab-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <div class="stat-label">Total Revenue Collected</div>
+                            <div class="stat-value" id="stat-total-revenue">₱0.00</div>
+                        </div>
+                        <div class="stat-icon green">💵</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <div class="stat-label">Available Rooms</div>
+                            <div class="stat-value" id="stat-available-rooms">0</div>
+                        </div>
+                        <div class="stat-icon blue">🛏️</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <div class="stat-label">Active Leases</div>
+                            <div class="stat-value" id="stat-active-leases">0</div>
+                        </div>
+                        <div class="stat-icon purple">📜</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <div class="stat-label">Occupancy Rate</div>
+                            <div class="stat-value" id="stat-occupancy-rate">0%</div>
+                        </div>
+                        <div class="stat-icon amber">📈</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h2 style="font-size: 18px; font-weight: 700;">Featured Available Rooms</h2>
+                    <button class="btn btn-outline btn-sm" onclick="switchTab('available-rooms')">View All Available Rooms →</button>
+                </div>
+                <div id="dashboard-available-rooms-grid" class="cards-grid" style="margin-bottom: 32px;"></div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div>
+                        <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 12px;">Recent Rent Payments</h2>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tenant</th>
+                                        <th>Room</th>
+                                        <th>Amount</th>
+                                        <th>Method</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashboard-recent-payments-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 12px;">Recent Maintenance Requests</h2>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Room</th>
+                                        <th>Issue</th>
+                                        <th>Status</th>
+                                        <th>Reported</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashboard-recent-maintenance-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. AVAILABLE ROOMS TAB -->
+            <section id="tab-available-rooms" class="tab-section">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label>Dormitory:</label>
+                        <select id="avail-filter-dorm" onchange="loadAvailableRooms()">
+                            <option value="">All Dormitories</option>
+                        </select>
+
+                        <label>Room Type:</label>
+                        <select id="avail-filter-type" onchange="loadAvailableRooms()">
+                            <option value="">All Types</option>
+                            <option value="Single Private">Single Private</option>
+                            <option value="Single Standard">Single Standard</option>
+                            <option value="Double Sharing">Double Sharing</option>
+                            <option value="Deluxe Studio">Deluxe Studio</option>
+                            <option value="Bedspace Dormitory">Bedspace</option>
+                        </select>
+
+                        <label>Max Monthly Rate (₱):</label>
+                        <input type="number" id="avail-filter-rate" placeholder="e.g. 5000" style="width: 140px;" oninput="loadAvailableRooms()">
+                    </div>
+                    <button class="btn btn-outline btn-sm" onclick="loadAvailableRooms()">🔄 Refresh</button>
+                </div>
+
+                <div id="available-rooms-grid" class="cards-grid"></div>
+            </section>
+
+            <!-- 3. ALL ROOMS TAB -->
+            <section id="tab-all-rooms" class="tab-section">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <input type="text" id="all-rooms-search" placeholder="Search room # or type..." oninput="loadAllRooms()" style="width: 220px;">
+                        <select id="all-rooms-filter-status" onchange="loadAllRooms()">
+                            <option value="">All Statuses</option>
+                            <option value="Available">Available</option>
+                            <option value="Occupied">Occupied</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="openNewRoomModal()">➕ Add New Room</button>
+                </div>
+
+                <div id="all-rooms-grid" class="cards-grid"></div>
+            </section>
+
+            <!-- 4. PAY RENT & PAYMENTS TAB -->
+            <section id="tab-payments" class="tab-section">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <select id="payment-filter-method" onchange="loadPayments()">
+                            <option value="">All Payment Methods</option>
+                            <option value="Cash">Cash</option>
+                            <option value="GCash">GCash</option>
+                            <option value="Maya">Maya</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select>
+                        <select id="payment-filter-status" onchange="loadPayments()">
+                            <option value="">All Statuses</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success" onclick="openPayRentModal()">
+                        <span>💳</span> Pay Rent Now
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Receipt #</th>
+                                <th>Tenant</th>
+                                <th>Room</th>
+                                <th>Dormitory</th>
+                                <th>Amount Paid</th>
+                                <th>Method</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payments-table-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 5. LEASES & CHECK-INS TAB -->
+            <section id="tab-leases" class="tab-section">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <select id="leases-filter-status" onchange="loadLeases()">
+                            <option value="">All Leases</option>
+                            <option value="Active" selected>Active Leases</option>
+                            <option value="Terminated">Terminated Leases</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="openNewLeaseModal()">
+                        <span>➕</span> Check-In New Tenant
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Lease ID</th>
+                                <th>Tenant Name</th>
+                                <th>Room</th>
+                                <th>Monthly Rate</th>
+                                <th>Lease Period</th>
+                                <th>Total Paid</th>
+                                <th>Balance Owed</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leases-table-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 6. RESERVATIONS TAB -->
+            <section id="tab-reservations" class="tab-section">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <select id="reservations-filter-status" onchange="loadReservations()">
+                            <option value="">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Converted">Converted</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="openReserveModal()">
+                        <span>➕</span> New Reservation
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Requester</th>
+                                <th>Room Reserved</th>
+                                <th>Rate</th>
+                                <th>Date Requested</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservations-table-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 7. MAINTENANCE TAB -->
+            <section id="tab-maintenance" class="tab-section">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <select id="maintenance-filter-status" onchange="loadMaintenance()">
+                            <option value="">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Resolved">Resolved</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="openMaintenanceModal()">
+                        <span>🛠️</span> Report Maintenance Issue
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Room</th>
+                                <th>Reported By</th>
+                                <th>Issue Description</th>
+                                <th>Date Reported</th>
+                                <th>Status</th>
+                                <th>Resolved At</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="maintenance-table-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 8. DORMITORIES TAB -->
+            <section id="tab-dormitories" class="tab-section">
+                <div class="filter-bar">
+                    <h2 style="font-size: 16px; font-weight: 600;">Dormitory Buildings & Capacity</h2>
+                    <button class="btn btn-primary btn-sm" onclick="openNewDormModal()">➕ Add Dormitory</button>
+                </div>
+
+                <div id="dormitories-grid" class="cards-grid"></div>
+            </section>
+
+            <!-- 9. TENANTS / USERS TAB -->
+            <section id="tab-tenants" class="tab-section">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <input type="text" id="users-search" placeholder="Search name or email..." oninput="loadUsers()" style="width: 240px;">
+                        <select id="users-role-filter" onchange="loadUsers()">
+                            <option value="">All Roles</option>
+                            <option value="Tenant">Tenants</option>
+                            <option value="Admin">Admins / Landlords</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="openNewUserModal()">➕ Register Tenant</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Full Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                                <th>Active Leases</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODAL: PAY RENT -->
+    <div class="modal-overlay" id="modal-pay-rent">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">💰 Pay Rent / Record Payment</h3>
+                <button class="modal-close" onclick="closeModal('modal-pay-rent')">&times;</button>
+            </div>
+            <form id="form-pay-rent" onsubmit="handlePayRent(event)">
+                <div class="form-group">
+                    <label>Select Lease / Tenant Room *</label>
+                    <select id="pay-lease-id" required onchange="updatePayRentAutoAmount()">
+                        <option value="">-- Choose Active Lease --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Payment Amount (₱) *</label>
+                    <input type="number" step="0.01" id="pay-amount" required placeholder="e.g. 4500.00">
+                </div>
+                <div class="form-group">
+                    <label>Payment Method *</label>
+                    <select id="pay-method" required>
+                        <option value="Cash">Cash</option>
+                        <option value="GCash">GCash</option>
+                        <option value="Maya">Maya</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                        <option value="Credit Card">Credit Card</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Reference Number (Optional)</label>
+                    <input type="text" id="pay-reference" placeholder="Auto-generated if blank (e.g. GCASH-123456)">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-pay-rent')">Cancel</button>
+                    <button type="submit" class="btn btn-success">Confirm & Pay Rent</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CHECK-IN / NEW LEASE -->
+    <div class="modal-overlay" id="modal-new-lease">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">📜 Check-In Tenant / New Lease</h3>
+                <button class="modal-close" onclick="closeModal('modal-new-lease')">&times;</button>
+            </div>
+            <form id="form-new-lease" onsubmit="handleNewLease(event)">
+                <div class="form-group">
+                    <label>Tenant / User *</label>
+                    <select id="lease-user-id" required>
+                        <option value="">-- Select Tenant --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Room *</label>
+                    <select id="lease-room-id" required>
+                        <option value="">-- Select Available Room --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Start Date *</label>
+                    <input type="date" id="lease-start-date" required>
+                </div>
+                <div class="form-group">
+                    <label>End Date *</label>
+                    <input type="date" id="lease-end-date" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-new-lease')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Lease</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: RESERVE ROOM -->
+    <div class="modal-overlay" id="modal-reserve">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">📅 Reserve Room</h3>
+                <button class="modal-close" onclick="closeModal('modal-reserve')">&times;</button>
+            </div>
+            <form id="form-reserve" onsubmit="handleNewReservation(event)">
+                <div class="form-group">
+                    <label>Requester (Tenant) *</label>
+                    <select id="reserve-user-id" required>
+                        <option value="">-- Select Tenant --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Room *</label>
+                    <select id="reserve-room-id" required>
+                        <option value="">-- Select Room --</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-reserve')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Reservation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: MAINTENANCE REQUEST -->
+    <div class="modal-overlay" id="modal-maintenance">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🛠️ Report Maintenance Issue</h3>
+                <button class="modal-close" onclick="closeModal('modal-maintenance')">&times;</button>
+            </div>
+            <form id="form-maintenance" onsubmit="handleNewMaintenance(event)">
+                <div class="form-group">
+                    <label>Room *</label>
+                    <select id="maint-room-id" required>
+                        <option value="">-- Select Room --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Reported By *</label>
+                    <select id="maint-user-id" required>
+                        <option value="">-- Select Tenant / Reporter --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Issue Description *</label>
+                    <textarea id="maint-description" rows="3" required placeholder="Describe the problem (e.g. leaking faucet, broken light fixture)..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-maintenance')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD ROOM -->
+    <div class="modal-overlay" id="modal-room">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🚪 Add New Room</h3>
+                <button class="modal-close" onclick="closeModal('modal-room')">&times;</button>
+            </div>
+            <form id="form-room" onsubmit="handleNewRoom(event)">
+                <div class="form-group">
+                    <label>Dormitory Building *</label>
+                    <select id="room-dorm-id" required>
+                        <option value="">-- Select Dormitory --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Room Number / Name *</label>
+                    <input type="text" id="room-number" required placeholder="e.g. Room 105">
+                </div>
+                <div class="form-group">
+                    <label>Room Type *</label>
+                    <select id="room-type" required>
+                        <option value="Single Private">Single Private</option>
+                        <option value="Single Standard">Single Standard</option>
+                        <option value="Double Sharing">Double Sharing</option>
+                        <option value="Deluxe Studio">Deluxe Studio</option>
+                        <option value="Bedspace Dormitory">Bedspace Dormitory</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Capacity (Persons) *</label>
+                    <input type="number" id="room-capacity" min="1" max="20" value="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Monthly Rate (₱) *</label>
+                    <input type="number" step="0.01" id="room-rate" required placeholder="e.g. 4500.00">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-room')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Room</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: RECEIPT VIEW -->
+    <div class="modal-overlay" id="modal-receipt">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🧾 Official Rent Receipt</h3>
+                <button class="modal-close" onclick="closeModal('modal-receipt')">&times;</button>
+            </div>
+            <div class="receipt-box" id="receipt-details">
+                <!-- Injected via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="window.print()">🖨️ Print Receipt</button>
+                <button class="btn btn-primary" onclick="closeModal('modal-receipt')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

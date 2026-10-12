@@ -1,0 +1,213 @@
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\appsettings.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.staticwebassets.endpoints.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.exe
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.deps.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.runtimeconfig.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.pdb
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.csproj.AssemblyReference.cache
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.AssemblyInfoInputs.cache
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.AssemblyInfo.cs
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.csproj.CoreCompileInputs.cache
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\scopedcss\bundle\Boarding House Management System.styles.css
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding.0D2D46E6.Up2Date
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\refint\Boarding House Management System.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.pdb
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.genruntimeconfig.cache
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\ref\Boarding House Management System.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Humanizer.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\MySqlConnector.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Unknown\OneDrive\Documents\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\appsettings.Development.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\appsettings.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.staticwebassets.endpoints.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.exe
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.deps.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.runtimeconfig.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.pdb
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Humanizer.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\MySqlConnector.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.CodeDom.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.csproj.AssemblyReference.cache
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.GeneratedMSBuildEditorConfig.editorconfig
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.AssemblyInfoInputs.cache
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.AssemblyInfo.cs
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.csproj.CoreCompileInputs.cache
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.MvcApplicationPartsAssemblyInfo.cs
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.MvcApplicationPartsAssemblyInfo.cache
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\scopedcss\bundle\Boarding House Management System.styles.css
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\staticwebassets.build.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\staticwebassets.development.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding.0D2D46E6.Up2Date
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\refint\Boarding House Management System.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.pdb
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\Boarding House Management System.genruntimeconfig.cache
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\obj\Debug\net8.0\ref\Boarding House Management System.dll
+C:\Masteral Projects\Boarding House Management System\Boarding House Management System\bin\Debug\net8.0\Boarding House Management System.staticwebassets.runtime.json

@@ -1,0 +1,63 @@
+@page
+@model Dorm.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="container py-5" style="max-width: 520px;">
+    <div class="glass-card p-4 p-md-5">
+        <div class="text-center mb-4">
+            <div class="brand-badge mx-auto mb-3" style="width: 56px; height: 56px; background: var(--grad-emerald);">
+                <i class="bi bi-person-plus fs-3"></i>
+            </div>
+            <h2 class="fw-bold text-white mb-1">Create Your Account</h2>
+            <p class="text-secondary small">Sign up as a tenant to reserve rooms and manage your rent payments.</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger bg-danger bg-opacity-25 text-danger border border-danger border-opacity-25 small">
+                <i class="bi bi-exclamation-octagon me-1"></i> @Model.ErrorMessage
+            </div>
+        }
+
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <label asp-for="Input.Username" class="form-label text-secondary small fw-semibold">Username</label>
+                    <input asp-for="Input.Username" class="form-control form-control-dorm" placeholder="Choose a username" />
+                    <span asp-validation-for="Input.Username" class="text-danger small"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="Input.Password" class="form-label text-secondary small fw-semibold">Password</label>
+                    <input asp-for="Input.Password" type="password" class="form-control form-control-dorm" placeholder="Min 4 characters" />
+                    <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Input.FullName" class="form-label text-secondary small fw-semibold">Full Name</label>
+                    <input asp-for="Input.FullName" class="form-control form-control-dorm" placeholder="Juan Dela Cruz" />
+                    <span asp-validation-for="Input.FullName" class="text-danger small"></span>
+                </div>
+                <div class="col-sm-7">
+                    <label asp-for="Input.Email" class="form-label text-secondary small fw-semibold">Email Address</label>
+                    <input asp-for="Input.Email" type="email" class="form-control form-control-dorm" placeholder="you@email.com" />
+                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                </div>
+                <div class="col-sm-5">
+                    <label asp-for="Input.PhoneNumber" class="form-label text-secondary small fw-semibold">Phone (Optional)</label>
+                    <input asp-for="Input.PhoneNumber" class="form-control form-control-dorm" placeholder="0917-XXX-XXXX" />
+                </div>
+            </div>
+            <input type="hidden" asp-for="Input.Role" value="Tenant" />
+
+            <button type="submit" class="btn btn-emerald-gradient w-100 py-2 justify-content-center fw-bold mt-4">
+                <i class="bi bi-person-check me-2"></i> Create Account
+            </button>
+        </form>
+
+        <div class="text-center text-secondary small mt-4">
+            Already have an account? <a asp-page="/Account/Login" class="text-decoration-none" style="color: #818cf8;">Sign In</a>
+        </div>
+    </div>
+</div>

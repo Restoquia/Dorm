@@ -1,0 +1,94 @@
+@page
+@model Dorm.Pages.Tenant.MaintenanceModel
+@{
+    ViewData["Title"] = "Report Maintenance Issue";
+}
+
+<div class="container-fluid px-lg-5 py-4">
+    <div class="mb-4">
+        <span class="text-uppercase text-xs fw-bold tracking-wider text-warning">Facility Services</span>
+        <h1 class="h2 fw-bold text-white mb-1">Maintenance Requests</h1>
+        <p class="text-secondary mb-0">Report room issues and track repair progress in real time.</p>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div class="alert @(Model.StatusMessageType == "error" ? "alert-danger bg-danger text-white border-0" : "alert-success bg-success text-white border-0") alert-dismissible fade show shadow-lg mb-4" role="alert">
+            <i class="bi @(Model.StatusMessageType == "error" ? "bi-exclamation-octagon" : "bi-check-circle-fill") me-2"></i>
+            @Model.StatusMessage
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row g-4">
+        <!-- Submit New Request Form -->
+        <div class="col-lg-5">
+            <div class="glass-card p-4 position-sticky" style="top: 90px;">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <i class="bi bi-wrench-adjustable-circle text-warning fs-4"></i>
+                    <h4 class="text-white fw-bold mb-0">Report an Issue</h4>
+                </div>
+
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small fw-semibold">Room</label>
+                        <select asp-for="Input.RoomId" class="form-select form-select-dorm" required>
+                            <option value="">Select your room...</option>
+                            @foreach (var lease in Model.ActiveLeases)
+                            {
+                                <option value="@lease.RoomId">@lease.RoomNumber — @lease.DormitoryName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small fw-semibold">Describe the Issue</label>
+                        <textarea asp-for="Input.IssueDescription" class="form-control form-control-dorm" rows="4" placeholder="Describe the problem in detail (e.g., leaking faucet, broken AC unit, etc.)" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-gradient w-100 py-2 justify-content-center fw-bold">
+                        <i class="bi bi-send me-2"></i> Submit Maintenance Ticket
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Request History -->
+        <div class="col-lg-7">
+            <div class="glass-card p-4">
+                <h5 class="fw-bold text-white mb-3"><i class="bi bi-list-check text-info me-2"></i> My Maintenance History</h5>
+
+                @if (Model.MyRequests.Count == 0)
+                {
+                    <div class="text-center py-4">
+                        <i class="bi bi-patch-check text-success" style="font-size: 3rem;"></i>
+                        <h5 class="text-white mt-3">All Clear!</h5>
+                        <p class="text-secondary">No maintenance issues have been reported.</p>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var req in Model.MyRequests.OrderByDescending(r => r.DateReported))
+                    {
+                        <div class="p-3 mb-3 rounded" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <h6 class="text-white fw-bold mb-0">@req.RoomNumber</h6>
+                                    <small class="text-muted">@req.DormitoryName &bull; Reported: @req.DateReported.ToString("MMM dd, yyyy h:mm tt")</small>
+                                </div>
+                                <span class="badge badge-status @(req.Status == "Resolved" ? "badge-approved" : req.Status == "In Progress" ? "badge-maintenance" : "badge-pending")">
+                                    @req.Status
+                                </span>
+                            </div>
+                            <p class="text-secondary small mb-1">@req.IssueDescription</p>
+                            @if (req.ResolvedAt.HasValue)
+                            {
+                                <small class="text-success"><i class="bi bi-check-circle me-1"></i> Resolved on @req.ResolvedAt.Value.ToString("MMM dd, yyyy")</small>
+                            }
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

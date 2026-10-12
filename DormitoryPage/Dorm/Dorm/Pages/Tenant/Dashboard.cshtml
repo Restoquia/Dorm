@@ -1,0 +1,172 @@
+@page
+@model Dorm.Pages.Tenant.DashboardModel
+@inject Dorm.Services.ISessionService SessionService
+@{
+    ViewData["Title"] = "Tenant Dashboard";
+    var user = SessionService.GetCurrentUser();
+}
+
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+        <div>
+            <span class="text-uppercase text-xs fw-bold tracking-wider text-success">Tenant Portal</span>
+            <h1 class="h2 fw-bold text-white mb-1">Welcome back, @(user?.FullName ?? "Tenant") 👋</h1>
+            <p class="text-secondary mb-0">Manage your lease, track payments, and report maintenance issues.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-page="/Tenant/Payments" class="btn btn-emerald-gradient">
+                <i class="bi bi-wallet2 me-1"></i> Pay Rent
+            </a>
+            <a asp-page="/Tenant/Maintenance" class="btn btn-glass">
+                <i class="bi bi-tools me-1"></i> Report Issue
+            </a>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-warning border-0 shadow">@Model.ErrorMessage</div>
+    }
+
+    <!-- KPI Row -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-lg-3">
+            <div class="kpi-card" style="--kpi-accent: #10b981;">
+                <div class="kpi-title">Active Leases</div>
+                <div class="kpi-value">@Model.ActiveLeases.Count</div>
+                <small class="text-muted">Current tenancy agreements</small>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="kpi-card" style="--kpi-accent: #6366f1;">
+                <div class="kpi-title">Reservations</div>
+                <div class="kpi-value">@Model.Reservations.Count</div>
+                <small class="text-muted">Total booking requests</small>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="kpi-card" style="--kpi-accent: #f59e0b;">
+                <div class="kpi-title">Maintenance Tickets</div>
+                <div class="kpi-value">@Model.MaintenanceRequests.Count(m => m.Status != "Resolved")</div>
+                <small class="text-muted">Open issues</small>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="kpi-card" style="--kpi-accent: #06b6d4;">
+                <div class="kpi-title">Total Rent Paid</div>
+                <div class="kpi-value" style="font-size: 1.6rem;">₱@Model.ActiveLeases.Sum(l => l.TotalAmountPaid).ToString("N0")</div>
+                <small class="text-muted">Across all active leases</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Active Leases -->
+        <div class="col-lg-7">
+            <div class="glass-card p-4">
+                <h4 class="fw-bold text-white mb-3"><i class="bi bi-file-earmark-text text-info me-2"></i> My Active Leases</h4>
+                @if (Model.ActiveLeases.Count == 0)
+                {
+                    <div class="text-center py-4 text-secondary">
+                        <i class="bi bi-inbox fs-1"></i>
+                        <p class="mt-2">No active leases. Browse available rooms to get started.</p>
+                        <a asp-page="/Index" class="btn btn-primary-gradient btn-sm">Browse Rooms</a>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var lease in Model.ActiveLeases)
+                    {
+                        <div class="p-3 mb-3 rounded" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <h5 class="text-white fw-bold mb-0">@lease.RoomNumber</h5>
+                                    <small class="text-secondary">@lease.DormitoryName &bull; @lease.RoomType</small>
+                                </div>
+                                <span class="badge badge-status badge-approved">@lease.Status</span>
+                            </div>
+                            <div class="row g-2 text-secondary small">
+                                <div class="col-sm-4">
+                                    <div class="text-muted" style="font-size: 0.7rem;">LEASE PERIOD</div>
+                                    @lease.StartDate.ToString("MMM dd, yyyy") — @lease.EndDate.ToString("MMM dd, yyyy")
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="text-muted" style="font-size: 0.7rem;">MONTHLY RATE</div>
+                                    <span class="text-success fw-bold">₱@lease.MonthlyRate.ToString("N0")</span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="text-muted" style="font-size: 0.7rem;">BALANCE</div>
+                                    <span class="@(lease.BalanceRemaining > 0 ? "text-warning" : "text-success") fw-bold">
+                                        ₱@lease.BalanceRemaining.ToString("N0")
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-2 pt-2 border-top border-secondary border-opacity-25">
+                                <a asp-page="/Tenant/Payments" asp-route-leaseId="@lease.LeaseId" class="btn btn-sm btn-glass">
+                                    <i class="bi bi-receipt me-1"></i> View Statement & Pay Rent
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <!-- Right Column: Reservations & Maintenance -->
+        <div class="col-lg-5">
+            <!-- Reservations -->
+            <div class="glass-card p-4 mb-4">
+                <h5 class="fw-bold text-white mb-3"><i class="bi bi-calendar2-check text-warning me-2"></i> My Reservations</h5>
+                @if (Model.Reservations.Count == 0)
+                {
+                    <p class="text-secondary small mb-0">No reservation requests yet.</p>
+                }
+                else
+                {
+                    @foreach (var res in Model.Reservations.Take(5))
+                    {
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary border-opacity-25">
+                            <div>
+                                <div class="text-white fw-semibold small">@res.RoomNumber</div>
+                                <small class="text-muted">@res.DormitoryName &bull; @res.ReservationDate.ToString("MMM dd, yyyy")</small>
+                            </div>
+                            <span class="badge badge-status @(res.Status == "Pending" ? "badge-pending" : res.Status == "Approved" ? "badge-approved" : "badge-occupied")">
+                                @res.Status
+                            </span>
+                        </div>
+                    }
+                }
+            </div>
+
+            <!-- Maintenance Requests -->
+            <div class="glass-card p-4">
+                <h5 class="fw-bold text-white mb-3"><i class="bi bi-tools text-danger me-2"></i> Maintenance Requests</h5>
+                @if (Model.MaintenanceRequests.Count == 0)
+                {
+                    <p class="text-secondary small mb-0">No reported issues.</p>
+                }
+                else
+                {
+                    @foreach (var req in Model.MaintenanceRequests.Take(5))
+                    {
+                        <div class="d-flex justify-content-between align-items-start py-2 border-bottom border-secondary border-opacity-25">
+                            <div>
+                                <div class="text-white small fw-semibold">@(req.IssueDescription.Length > 50 ? req.IssueDescription[..50] + "..." : req.IssueDescription)</div>
+                                <small class="text-muted">@req.RoomNumber &bull; @req.DateReported.ToString("MMM dd")</small>
+                            </div>
+                            <span class="badge badge-status @(req.Status == "Resolved" ? "badge-approved" : req.Status == "In Progress" ? "badge-maintenance" : "badge-pending")">
+                                @req.Status
+                            </span>
+                        </div>
+                    }
+                }
+                <div class="mt-3">
+                    <a asp-page="/Tenant/Maintenance" class="btn btn-sm btn-glass w-100 text-center">
+                        <i class="bi bi-plus-circle me-1"></i> File New Maintenance Request
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

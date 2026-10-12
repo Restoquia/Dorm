@@ -1,0 +1,159 @@
+@page
+@model Dorm.Pages.Admin.ReservationsModel
+@{
+    ViewData["Title"] = "Reservations Queue";
+}
+
+<div class="container-fluid px-lg-5 py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+        <div>
+            <span class="text-uppercase text-xs fw-bold tracking-wider text-warning">Booking Management</span>
+            <h1 class="h2 fw-bold text-white mb-1">Reservations Queue</h1>
+            <p class="text-secondary mb-0">Review, approve, or reject tenant booking requests. Convert approved bookings into active leases.</p>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div class="alert @(Model.StatusMessageType == "error" ? "alert-danger bg-danger text-white border-0" : "alert-success bg-success text-white border-0") alert-dismissible fade show shadow-lg mb-4" role="alert">
+            @Model.StatusMessage
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Filter -->
+    <div class="glass-card p-3 mb-4">
+        <form method="get" class="d-flex align-items-center gap-3">
+            <label class="text-secondary fw-semibold small text-nowrap">Filter Status:</label>
+            <select name="StatusFilter" class="form-select form-select-dorm" onchange="this.form.submit()">
+                <option value="">All Reservations</option>
+                <option value="Pending" selected="@(Model.StatusFilter == "Pending")">Pending</option>
+                <option value="Approved" selected="@(Model.StatusFilter == "Approved")">Approved</option>
+                <option value="Cancelled" selected="@(Model.StatusFilter == "Cancelled")">Cancelled</option>
+                <option value="Converted" selected="@(Model.StatusFilter == "Converted")">Converted to Lease</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- Reservations Table -->
+    <div class="glass-card p-4">
+        @if (Model.Reservations.Count == 0)
+        {
+            <div class="text-center py-5">
+                <i class="bi bi-inbox text-secondary" style="font-size: 3rem;"></i>
+                <h4 class="text-white mt-3">No reservations found</h4>
+                <p class="text-secondary">No booking requests match the current filter.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-dorm mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tenant</th>
+                            <th>Contact</th>
+                            <th>Room</th>
+                            <th>Building</th>
+                            <th>Rate</th>
+                            <th>Date Requested</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model.Reservations.OrderByDescending(r => r.ReservationDate))
+                        {
+                            <tr>
+                                <td class="text-muted">@r.ReservationId</td>
+                                <td class="fw-semibold text-white">@r.UserName</td>
+                                <td class="text-muted small">@r.UserEmail</td>
+                                <td>@r.RoomNumber</td>
+                                <td>@r.DormitoryName</td>
+                                <td class="text-success fw-bold">₱@r.MonthlyRate.ToString("N0")</td>
+                                <td class="text-muted">@r.ReservationDate.ToString("MMM dd, yyyy")</td>
+                                <td>
+                                    <span class="badge badge-status @(r.Status == "Pending" ? "badge-pending" : r.Status == "Approved" ? "badge-approved" : r.Status == "Converted" ? "badge-available" : "badge-occupied")">
+                                        @r.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-wrap gap-1">
+                                        @if (r.Status == "Pending")
+                                        {
+                                            <form method="post" asp-page-handler="Approve">
+                                                <input type="hidden" name="reservationId" value="@r.ReservationId" />
+                                                <button type="submit" class="btn btn-sm btn-outline-success border-success" title="Approve">
+                                                    <i class="bi bi-check-lg"></i>
+                                                </button>
+                                            </form>
+                                            <form method="post" asp-page-handler="Cancel">
+                                                <input type="hidden" name="reservationId" value="@r.ReservationId" />
+                                                <button type="submit" class="btn btn-sm btn-outline-danger border-danger" title="Reject">
+                                                    <i class="bi bi-x-lg"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        @if (r.Status == "Approved")
+                                        {
+                                            <button type="button" class="btn btn-sm btn-primary-gradient" data-bs-toggle="modal" data-bs-target="#convertModal-@r.ReservationId">
+                                                <i class="bi bi-arrow-right-circle me-1"></i> Check-in
+                                            </button>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+
+                            @if (r.Status == "Approved")
+                            {
+                                <!-- Convert to Lease Modal -->
+                                <div class="modal fade" id="convertModal-@r.ReservationId" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content modal-content-dorm">
+                                            <div class="modal-header modal-header-dorm">
+                                                <h5 class="modal-title text-white fw-bold"><i class="bi bi-person-check text-success me-2"></i> Check-in @r.UserName</h5>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <form method="post" asp-page-handler="Convert">
+                                                <input type="hidden" name="reservationId" value="@r.ReservationId" />
+                                                <div class="modal-body p-4">
+                                                    <div class="p-3 mb-3 rounded" style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2);">
+                                                        <div class="d-flex justify-content-between mb-1 small">
+                                                            <span class="text-secondary">Tenant:</span><span class="text-white fw-semibold">@r.UserName</span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between mb-1 small">
+                                                            <span class="text-secondary">Room:</span><span class="text-white fw-semibold">@r.RoomNumber — @r.DormitoryName</span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between small">
+                                                            <span class="text-secondary">Monthly Rate:</span><span class="text-success fw-bold">₱@r.MonthlyRate.ToString("N0")</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-3">
+                                                        <div class="col-sm-6">
+                                                            <label class="form-label text-secondary small fw-semibold">Lease Start Date</label>
+                                                            <input type="date" name="startDate" class="form-control form-control-dorm" value="@DateTime.UtcNow.ToString("yyyy-MM-dd")" required />
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="form-label text-secondary small fw-semibold">Lease End Date</label>
+                                                            <input type="date" name="endDate" class="form-control form-control-dorm" value="@DateTime.UtcNow.AddMonths(6).ToString("yyyy-MM-dd")" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer modal-footer-dorm">
+                                                    <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-emerald-gradient"><i class="bi bi-person-check me-1"></i> Activate Lease & Check-in</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-muted small pt-3">Showing @Model.Reservations.Count reservation(s)</div>
+        }
+    </div>
+</div>

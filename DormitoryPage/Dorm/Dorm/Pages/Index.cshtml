@@ -1,0 +1,392 @@
+@page
+@model Dorm.Pages.IndexModel
+@{
+    ViewData["Title"] = "Find Your Ideal Dorm Room & Boarding House";
+}
+
+<!-- Notification Alert -->
+@if (!string.IsNullOrEmpty(Model.StatusMessage))
+{
+    <div class="container-fluid px-lg-5 pt-3">
+        <div class="alert @(Model.StatusMessageType == "error" ? "alert-danger bg-danger text-white border-0" : Model.StatusMessageType == "warning" ? "alert-warning" : "alert-success bg-success text-white border-0") alert-dismissible fade show shadow-lg" role="alert">
+            <i class="bi @(Model.StatusMessageType == "error" ? "bi-exclamation-octagon" : "bi-check-circle-fill") me-2"></i>
+            @Model.StatusMessage
+            <button type="button" class="btn-close @(Model.StatusMessageType != "warning" ? "btn-close-white" : "")" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+}
+
+<!-- Hero Section -->
+<section class="py-5 position-relative">
+    <div class="container-fluid px-lg-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3" style="background: rgba(99, 102, 241, 0.12); border: 1px solid rgba(99, 102, 241, 0.3);">
+                    <i class="bi bi-stars text-indigo" style="color: #818cf8;"></i>
+                    <span class="text-white small fw-semibold">Next-Gen Dormitory & Boarding House Platform</span>
+                </div>
+                <h1 class="display-4 fw-extrabold text-white mb-3" style="line-height: 1.15;">
+                    Smart Living Spaces, <br />
+                    <span style="background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Seamless Booking & Billing</span>
+                </h1>
+                <p class="lead text-secondary mb-4" style="font-size: 1.1rem; max-width: 620px;">
+                    Discover verified student dorms, bedspaces, and deluxe private studios. Check real-time vacancy slots, book reservations online, and manage rent payments directly through our central API.
+                </p>
+
+                <!-- Quick Action Buttons -->
+                <div class="d-flex flex-wrap gap-3 mb-4">
+                    <a href="#vacancies-section" class="btn btn-primary-gradient px-4 py-2 fs-6">
+                        <i class="bi bi-search me-1"></i> Browse Vacancies
+                    </a>
+                    <a asp-page="/Tenant/Payments" class="btn btn-glass px-4 py-2 fs-6">
+                        <i class="bi bi-wallet2 me-1 text-success"></i> Pay Rent Online
+                    </a>
+                    <a asp-page="/Admin/Dashboard" class="btn btn-glass px-4 py-2 fs-6">
+                        <i class="bi bi-speedometer2 me-1 text-info"></i> Proprietor Console
+                    </a>
+                </div>
+
+                <!-- Live Metrics Ticker -->
+                <div class="row g-3 pt-2">
+                    <div class="col-4 col-sm-4">
+                        <div class="kpi-card p-3" style="--kpi-accent: #10b981;">
+                            <div class="kpi-title" style="font-size: 0.725rem;">Available Units</div>
+                            <div class="kpi-value fs-3" style="color: #34d399;">@(Model.Stats?.AvailableRooms ?? Model.AvailableRooms.Count)</div>
+                            <small class="text-muted d-block" style="font-size: 0.7rem;">Vacant right now</small>
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4">
+                        <div class="kpi-card p-3" style="--kpi-accent: #6366f1;">
+                            <div class="kpi-title" style="font-size: 0.725rem;">Occupancy</div>
+                            <div class="kpi-value fs-3" style="color: #818cf8;">@(Model.Stats?.OverallOccupancyRate.ToString("0.0") ?? "0")%</div>
+                            <small class="text-muted d-block" style="font-size: 0.7rem;">Active tenants</small>
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4">
+                        <div class="kpi-card p-3" style="--kpi-accent: #f59e0b;">
+                            <div class="kpi-title" style="font-size: 0.725rem;">Properties</div>
+                            <div class="kpi-value fs-3" style="color: #fbbf24;">@(Model.Stats?.TotalDormitories ?? Model.Dormitories.Count)</div>
+                            <small class="text-muted d-block" style="font-size: 0.7rem;">Residence halls</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Interactive Feature Card -->
+            <div class="col-lg-5">
+                <div class="glass-card p-4 border border-secondary border-opacity-25 shadow-lg position-relative">
+                    <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom border-secondary border-opacity-25">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-lightning-charge-fill text-warning fs-5"></i>
+                            <h5 class="mb-0 text-white fw-bold">Live Room Vacancy Finder</h5>
+                        </div>
+                        <span class="badge badge-status badge-available">API Connected</span>
+                    </div>
+
+                    <form method="get" class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label text-secondary small fw-semibold">Dormitory Building</label>
+                            <select name="DormitoryId" class="form-select form-select-dorm">
+                                <option value="">All Buildings & Halls</option>
+                                @foreach (var dorm in Model.Dormitories)
+                                {
+                                    <option value="@dorm.DormitoryId" selected="@(Model.DormitoryId == dorm.DormitoryId)">
+                                        @dorm.Name (@dorm.AvailableRooms available)
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label text-secondary small fw-semibold">Room Type</label>
+                            <select name="RoomType" class="form-select form-select-dorm">
+                                <option value="">Any Room Type</option>
+                                <option value="Single" selected="@(Model.RoomType == "Single")">Single Private</option>
+                                <option value="Double" selected="@(Model.RoomType == "Double")">Double Shared</option>
+                                <option value="Studio" selected="@(Model.RoomType == "Studio")">Deluxe Studio</option>
+                                <option value="Bedspace" selected="@(Model.RoomType == "Bedspace")">Bedspace Dorm</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label text-secondary small fw-semibold">Max Monthly Budget</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-dark border-secondary text-secondary">₱</span>
+                                <input type="number" name="MaxRate" class="form-control form-control-dorm" placeholder="e.g. 5000" value="@Model.MaxRate" />
+                            </div>
+                        </div>
+                        <div class="col-12 pt-2">
+                            <button type="submit" class="btn btn-primary-gradient w-100 justify-content-center py-2 fw-semibold">
+                                <i class="bi bi-filter me-2"></i> Apply Filters & Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Available Vacancies Section -->
+<section id="vacancies-section" class="py-5" style="background: rgba(15, 23, 42, 0.4);">
+    <div class="container-fluid px-lg-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-end mb-4 gap-3">
+            <div>
+                <span class="text-uppercase text-xs fw-bold tracking-wider" style="color: #34d399;">Real-Time Inventory</span>
+                <h2 class="h1 fw-bold text-white mb-1">Available Rooms for Lease</h2>
+                <p class="text-secondary mb-0">Showing vacant units with open occupancy slots ready for immediate move-in.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-dark border border-secondary text-light px-3 py-2">
+                    <i class="bi bi-check2-circle text-success me-1"></i> @Model.AvailableRooms.Count Units Found
+                </span>
+                @if (Model.DormitoryId.HasValue || !string.IsNullOrEmpty(Model.RoomType) || Model.MaxRate.HasValue)
+                {
+                    <a asp-page="/Index" class="btn btn-sm btn-glass text-warning">
+                        <i class="bi bi-x-circle me-1"></i> Reset Filters
+                    </a>
+                }
+            </div>
+        </div>
+
+        @if (Model.AvailableRooms.Count == 0)
+        {
+            <div class="glass-card text-center py-5">
+                <i class="bi bi-door-closed text-secondary" style="font-size: 3.5rem;"></i>
+                <h4 class="text-white mt-3">No vacant rooms match your current filters</h4>
+                <p class="text-muted mb-4">Try clearing your filters or check back later as tenancies update constantly.</p>
+                <a asp-page="/Index" class="btn btn-primary-gradient">View All Available Units</a>
+            </div>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var room in Model.AvailableRooms)
+                {
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <div class="room-card">
+                            <!-- Visual Banner -->
+                            <div class="room-image-banner">
+                                <i class="bi @(room.RoomType.Contains("Deluxe", StringComparison.OrdinalIgnoreCase) || room.RoomType.Contains("Studio", StringComparison.OrdinalIgnoreCase) ? "bi-stars" : room.RoomType.Contains("Double", StringComparison.OrdinalIgnoreCase) ? "bi-people" : "bi-door-open")"></i>
+                                <span class="position-absolute top-0 start-0 m-3 badge badge-status badge-available">
+                                    <i class="bi bi-circle-fill" style="font-size: 0.5rem;"></i> @room.Status
+                                </span>
+                                <span class="position-absolute top-0 end-0 m-3 badge bg-black bg-opacity-75 text-white border border-secondary">
+                                    @room.RoomType
+                                </span>
+                            </div>
+
+                            <!-- Room Details Body -->
+                            <div class="p-3 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-baseline mb-1">
+                                    <h4 class="h5 fw-bold text-white mb-0">@room.RoomNumber</h4>
+                                    <div class="text-end">
+                                        <div class="price-tag">₱@room.MonthlyRate.ToString("N0")</div>
+                                        <div class="price-period">/ month</div>
+                                    </div>
+                                </div>
+
+                                <div class="text-secondary small mb-3">
+                                    <i class="bi bi-geo-alt me-1 text-danger"></i> @(room.DormitoryName ?? "Main Residence")
+                                </div>
+
+                                <!-- Capacity Meter -->
+                                <div class="mb-3 p-2 rounded" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);">
+                                    <div class="d-flex justify-content-between align-items-center small mb-1">
+                                        <span class="text-secondary">Capacity:</span>
+                                        <span class="fw-semibold text-white">@room.CurrentOccupants / @room.Capacity occupants</span>
+                                    </div>
+                                    <div class="slot-progress-track">
+                                        @{
+                                            var pct = room.Capacity > 0 ? (int)((double)room.CurrentOccupants / room.Capacity * 100) : 0;
+                                        }
+                                        <div class="slot-progress-fill" style="width: @pct%;"></div>
+                                    </div>
+                                    <div class="text-end mt-1">
+                                        <small class="text-success fw-semibold" style="font-size: 0.72rem;">
+                                            <i class="bi bi-check-circle me-1"></i> @room.AvailableSlots slot@(room.AvailableSlots > 1 ? "s" : "") vacant
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <!-- Amenities Mini-Pills -->
+                                <div class="d-flex flex-wrap gap-1 mb-3">
+                                    <span class="badge bg-dark text-secondary border border-secondary" style="font-size: 0.7rem;"><i class="bi bi-wifi me-1"></i> Wi-Fi</span>
+                                    <span class="badge bg-dark text-secondary border border-secondary" style="font-size: 0.7rem;"><i class="bi bi-shield-lock me-1"></i> 24/7 CCTV</span>
+                                    <span class="badge bg-dark text-secondary border border-secondary" style="font-size: 0.7rem;"><i class="bi bi-fan me-1"></i> AC/Vent</span>
+                                </div>
+
+                                <!-- Action Footer -->
+                                <div class="mt-auto pt-2 d-flex gap-2">
+                                    <a asp-page="/Rooms/Details" asp-route-id="@room.RoomId" class="btn btn-glass btn-sm flex-grow-1 text-center">
+                                        <i class="bi bi-info-circle me-1"></i> Details
+                                    </a>
+                                    <button type="button" class="btn btn-primary-gradient btn-sm flex-grow-1"
+                                            data-bs-toggle="modal" data-bs-target="#reserveModal-@room.RoomId">
+                                        <i class="bi bi-calendar-plus me-1"></i> Reserve
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal for Fast Reservation -->
+                        <div class="modal fade" id="reserveModal-@room.RoomId" tabindex="-1" aria-labelledby="reserveModalLabel-@room.RoomId" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content modal-content-dorm">
+                                    <div class="modal-header modal-header-dorm">
+                                        <h5 class="modal-title text-white fw-bold" id="reserveModalLabel-@room.RoomId">
+                                            <i class="bi bi-calendar-check me-2 text-primary"></i> Reserve @room.RoomNumber
+                                        </h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form method="post" asp-page-handler="Reserve">
+                                        <input type="hidden" name="roomId" value="@room.RoomId" />
+                                        <div class="modal-body p-4">
+                                            <div class="p-3 mb-3 rounded" style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2);">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span class="text-secondary">Building:</span>
+                                                    <span class="text-white fw-semibold">@room.DormitoryName</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span class="text-secondary">Room Type:</span>
+                                                    <span class="text-white fw-semibold">@room.RoomType</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="text-secondary">Monthly Rate:</span>
+                                                    <span class="text-success fw-bold">₱@room.MonthlyRate.ToString("N0") / mo</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label text-secondary small">Target Move-in Date</label>
+                                                <input type="date" class="form-control form-control-dorm" value="@DateTime.UtcNow.AddDays(3).ToString("yyyy-MM-dd")" required />
+                                            </div>
+
+                                            <div class="alert alert-dark border-secondary small text-secondary mb-0">
+                                                <i class="bi bi-info-circle text-info me-1"></i> Submitting this request sends an instant booking notification to the dormitory manager for verification and lease assignment.
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer modal-footer-dorm">
+                                            <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary-gradient">
+                                                <i class="bi bi-send-check me-1"></i> Confirm Reservation
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Dormitory Buildings Showcase -->
+<section class="py-5">
+    <div class="container-fluid px-lg-5">
+        <div class="mb-4">
+            <span class="text-uppercase text-xs fw-bold tracking-wider" style="color: #818cf8;">Managed Buildings</span>
+            <h2 class="h1 fw-bold text-white mb-1">Our Boarding Residences & Halls</h2>
+            <p class="text-secondary mb-0">Carefully managed properties designed for student focus, safety, and community.</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var dorm in Model.Dormitories)
+            {
+                <div class="col-lg-6">
+                    <div class="glass-card interactive h-100">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-3 gap-2">
+                            <div>
+                                <h4 class="fw-bold text-white mb-1">@dorm.Name</h4>
+                                <div class="text-secondary small">
+                                    <i class="bi bi-geo-alt-fill text-danger me-1"></i> @dorm.Address
+                                </div>
+                            </div>
+                            <span class="badge badge-status badge-available">
+                                @dorm.AvailableRooms Available Rooms
+                            </span>
+                        </div>
+
+                        <p class="text-secondary small mb-3">
+                            @(dorm.Description ?? "Modern boarding facility with complete study halls, secure biometric entry, and clean dining facilities.")
+                        </p>
+
+                        <div class="row g-2 mb-3 py-2 rounded" style="background: rgba(0, 0, 0, 0.2);">
+                            <div class="col-4 text-center border-end border-secondary border-opacity-25">
+                                <div class="text-secondary" style="font-size: 0.7rem;">TOTAL ROOMS</div>
+                                <div class="fw-bold text-white fs-5">@dorm.TotalRooms</div>
+                            </div>
+                            <div class="col-4 text-center border-end border-secondary border-opacity-25">
+                                <div class="col-4-title text-secondary" style="font-size: 0.7rem;">CAPACITY</div>
+                                <div class="fw-bold text-white fs-5">@dorm.TotalCapacity beds</div>
+                            </div>
+                            <div class="col-4 text-center">
+                                <div class="text-secondary" style="font-size: 0.7rem;">OCCUPANCY</div>
+                                <div class="fw-bold text-success fs-5">@dorm.OccupancyRate%</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-2">
+                            <span class="text-muted small">
+                                <i class="bi bi-telephone text-info me-1"></i> Contact: @(dorm.ContactNumber ?? "Front Desk")
+                            </span>
+                            <a asp-page="/Index" asp-route-DormitoryId="@dorm.DormitoryId" class="btn btn-glass btn-sm">
+                                View Rooms in this Building <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- System Features & Amenities Section -->
+<section class="py-5" style="background: rgba(15, 23, 42, 0.4);">
+    <div class="container-fluid px-lg-5">
+        <div class="text-center mb-5" style="max-width: 650px; margin: 0 auto;">
+            <span class="text-uppercase text-xs fw-bold tracking-wider" style="color: #34d399;">Why Choose Us</span>
+            <h2 class="h1 fw-bold text-white mb-2">Built for Modern Living & Management</h2>
+            <p class="text-secondary">Everything students and boarding house managers need in a single integrated solution.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card text-center h-100 p-4">
+                    <div class="brand-badge mx-auto mb-3" style="width: 50px; height: 50px; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4);">
+                        <i class="bi bi-credit-card-2-front fs-4" style="color: #818cf8;"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Instant Rent Payments</h5>
+                    <p class="text-secondary small mb-0">Record and verify GCash, Maya, and bank transfers with instant digital receipts and automatic remaining balance computation.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card text-center h-100 p-4">
+                    <div class="brand-badge mx-auto mb-3" style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4);">
+                        <i class="bi bi-calendar2-check fs-4 text-success"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Live Room Booking</h5>
+                    <p class="text-secondary small mb-0">Reserve available units in real-time. Dorm administrators approve and convert bookings into active leases with one click.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card text-center h-100 p-4">
+                    <div class="brand-badge mx-auto mb-3" style="width: 50px; height: 50px; background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4);">
+                        <i class="bi bi-wrench-adjustable-circle fs-4 text-warning"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Maintenance Ticketing</h5>
+                    <p class="text-secondary small mb-0">Tenants report facility issues (plumbing, AC, electrical) with real-time tracking until resolution.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card text-center h-100 p-4">
+                    <div class="brand-badge mx-auto mb-3" style="width: 50px; height: 50px; background: rgba(217, 70, 239, 0.2); border: 1px solid rgba(217, 70, 239, 0.4);">
+                        <i class="bi bi-graph-up fs-4" style="color: #e879f9;"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Executive Analytics</h5>
+                    <p class="text-secondary small mb-0">Proprietors monitor occupancy rates, month-over-month revenue, transaction logs, and facility health telemetry.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

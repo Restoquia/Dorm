@@ -1,0 +1,273 @@
+@page
+@model Dorm.Pages.Admin.LeasesModel
+@{
+    ViewData["Title"] = "Active Leases & Check-In";
+}
+
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+        <div>
+            <span class="text-uppercase text-xs fw-bold tracking-wider text-success">Tenancy & Contracts</span>
+            <h1 class="h2 fw-bold text-white mb-1">Lease Agreements & Check-In</h1>
+            <p class="text-secondary mb-0">Oversee student occupancies, execute check-outs, or register walk-in tenants directly.</p>
+        </div>
+        <button type="button" class="btn btn-primary-gradient shadow-sm" data-bs-toggle="modal" data-bs-target="#newLeaseModal">
+            <i class="bi bi-person-plus-fill me-2"></i>Direct Tenant Check-In
+        </button>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div class="alert @(Model.StatusMessageType == "error" ? "alert-danger bg-danger text-white border-0" : "alert-success bg-success text-white border-0") alert-dismissible fade show shadow-lg mb-4" role="alert">
+            @Model.StatusMessage
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- KPI Summary Row -->
+    @{
+        var totalLeases = Model.Leases.Count;
+        var activeLeases = Model.Leases.Count(l => l.Status == "Active");
+        var terminatedLeases = Model.Leases.Count(l => l.Status == "Terminated");
+        var totalCollected = Model.Leases.Sum(l => l.TotalAmountPaid);
+    }
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="glass-card p-3 d-flex align-items-center">
+                <div class="kpi-icon bg-primary bg-opacity-25 text-primary me-3">
+                    <i class="bi bi-file-earmark-text"></i>
+                </div>
+                <div>
+                    <div class="text-secondary small fw-medium">Total Agreements</div>
+                    <div class="h4 fw-bold text-white mb-0">@totalLeases</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="glass-card p-3 d-flex align-items-center">
+                <div class="kpi-icon bg-success bg-opacity-25 text-success me-3">
+                    <i class="bi bi-person-check"></i>
+                </div>
+                <div>
+                    <div class="text-secondary small fw-medium">Active Tenants</div>
+                    <div class="h4 fw-bold text-success mb-0">@activeLeases</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="glass-card p-3 d-flex align-items-center">
+                <div class="kpi-icon bg-secondary bg-opacity-25 text-secondary me-3">
+                    <i class="bi bi-door-closed"></i>
+                </div>
+                <div>
+                    <div class="text-secondary small fw-medium">Terminated / Moved Out</div>
+                    <div class="h4 fw-bold text-white mb-0">@terminatedLeases</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="glass-card p-3 d-flex align-items-center">
+                <div class="kpi-icon bg-warning bg-opacity-25 text-warning me-3">
+                    <i class="bi bi-cash-coin"></i>
+                </div>
+                <div>
+                    <div class="text-secondary small fw-medium">Revenue Collected</div>
+                    <div class="h4 fw-bold text-warning mb-0">₱@totalCollected.ToString("N0")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters & Table -->
+    <div class="glass-card p-3 mb-4">
+        <form method="get" class="d-flex align-items-center gap-3">
+            <label class="text-secondary fw-semibold small text-nowrap">Filter Status:</label>
+            <select name="StatusFilter" class="form-select form-select-dorm" style="max-width: 200px;" onchange="this.form.submit()">
+                <option value="">All Contracts</option>
+                <option value="Active" selected="@(Model.StatusFilter == "Active")">Active Only</option>
+                <option value="Terminated" selected="@(Model.StatusFilter == "Terminated")">Terminated Only</option>
+            </select>
+        </form>
+    </div>
+
+    <div class="glass-card p-4">
+        @if (Model.Leases.Count == 0)
+        {
+            <div class="text-center py-5">
+                <i class="bi bi-folder2-open text-secondary" style="font-size: 3rem;"></i>
+                <h4 class="text-white mt-3">No Leases Found</h4>
+                <p class="text-secondary">No contract records match the selected status.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-dorm mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tenant</th>
+                            <th>Contact</th>
+                            <th>Room / Dorm</th>
+                            <th>Monthly Rent</th>
+                            <th>Period</th>
+                            <th>Paid</th>
+                            <th>Balance</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var lease in Model.Leases.OrderByDescending(l => l.StartDate))
+                        {
+                            <tr>
+                                <td class="text-muted">#@lease.LeaseId</td>
+                                <td>
+                                    <div class="fw-semibold text-white">@lease.TenantName</div>
+                                    <div class="text-muted small">UID: @lease.UserId</div>
+                                </td>
+                                <td>
+                                    <div class="small text-white">@lease.TenantEmail</div>
+                                    <div class="small text-muted">@lease.TenantPhone</div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-dark border border-secondary text-light">@lease.RoomNumber</span>
+                                    <div class="small text-secondary mt-1">@lease.DormitoryName</div>
+                                </td>
+                                <td class="text-white fw-bold">₱@lease.MonthlyRate.ToString("N0")</td>
+                                <td>
+                                    <div class="small text-white">@lease.StartDate.ToString("MMM dd, yyyy")</div>
+                                    <div class="small text-muted">to @lease.EndDate.ToString("MMM dd, yyyy")</div>
+                                </td>
+                                <td class="text-success fw-bold">₱@lease.TotalAmountPaid.ToString("N0")</td>
+                                <td>
+                                    @if (lease.BalanceRemaining > 0)
+                                    {
+                                        <span class="text-danger fw-bold">₱@lease.BalanceRemaining.ToString("N0")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-success small fw-semibold"><i class="bi bi-check-circle me-1"></i>Settled</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge badge-status @(lease.Status == "Active" ? "badge-available" : "badge-occupied")">
+                                        @lease.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-1">
+                                        @if (lease.Status == "Active")
+                                        {
+                                            <button type="button" class="btn btn-sm btn-outline-danger border-danger" data-bs-toggle="modal" data-bs-target="#terminateModal-@lease.LeaseId" title="Terminate / Check-out">
+                                                <i class="bi bi-box-arrow-right me-1"></i>Check-Out
+                                            </button>
+
+                                            <!-- Terminate Modal -->
+                                            <div class="modal fade" id="terminateModal-@lease.LeaseId" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content glass-card border border-danger">
+                                                        <div class="modal-header border-bottom border-secondary border-opacity-25">
+                                                            <h5 class="modal-title text-white">Confirm Tenant Check-Out</h5>
+                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body text-secondary">
+                                                            <p>Are you sure you want to terminate lease <strong>#@lease.LeaseId</strong> for tenant <strong>@lease.TenantName</strong>?</p>
+                                                            <div class="p-3 rounded bg-black bg-opacity-40 mb-3 border border-secondary border-opacity-25">
+                                                                <div class="d-flex justify-content-between mb-1">
+                                                                    <span>Room:</span>
+                                                                    <strong class="text-white">@lease.RoomNumber (@lease.DormitoryName)</strong>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between mb-1">
+                                                                    <span>Total Rent Paid:</span>
+                                                                    <span class="text-success">₱@lease.TotalAmountPaid.ToString("N0")</span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <span>Remaining Unpaid:</span>
+                                                                    <span class="text-danger">₱@lease.BalanceRemaining.ToString("N0")</span>
+                                                                </div>
+                                                            </div>
+                                                            <p class="small text-warning mb-0">
+                                                                <i class="bi bi-exclamation-triangle me-1"></i>
+                                                                This action frees the room slot and marks the lease as Terminated.
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer border-top border-secondary border-opacity-25">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                            <form method="post" asp-page-handler="Terminate">
+                                                                <input type="hidden" name="leaseId" value="@lease.LeaseId" />
+                                                                <button type="submit" class="btn btn-danger">Confirm Check-Out</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">Closed</span>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Modal: Direct Walk-In Check-In -->
+<div class="modal fade" id="newLeaseModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content glass-card border border-primary">
+            <div class="modal-header border-bottom border-secondary border-opacity-25">
+                <div>
+                    <h5 class="modal-title text-white fw-bold">Direct Walk-In Check-In</h5>
+                    <p class="text-secondary small mb-0">Create an instant active lease for a new or existing tenant.</p>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" asp-page-handler="CreateLease">
+                <div class="modal-body text-secondary">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-light fw-medium">Tenant <span class="text-danger">*</span></label>
+                            <select asp-for="NewLease.UserId" class="form-select form-select-dorm" required>
+                                <option value="">-- Choose Tenant --</option>
+                                @foreach (var tenant in Model.Tenants)
+                                {
+                                    <option value="@tenant.UserId">@tenant.FullName (@tenant.Username - @tenant.Role)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-light fw-medium">Room Assignment <span class="text-danger">*</span></label>
+                            <select asp-for="NewLease.RoomId" class="form-select form-select-dorm" required>
+                                <option value="">-- Choose Available Room --</option>
+                                @foreach (var room in Model.AvailableRooms)
+                                {
+                                    <option value="@room.RoomId">@room.RoomNumber - @room.RoomType (@room.DormitoryName) - ₱@room.MonthlyRate.ToString("N0")/mo (Slots: @room.AvailableSlots)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-light fw-medium">Contract Start Date <span class="text-danger">*</span></label>
+                            <input type="date" asp-for="NewLease.StartDate" class="form-control form-control-dorm" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-light fw-medium">Contract End Date <span class="text-danger">*</span></label>
+                            <input type="date" asp-for="NewLease.EndDate" class="form-control form-control-dorm" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top border-secondary border-opacity-25">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary-gradient">Complete Check-In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

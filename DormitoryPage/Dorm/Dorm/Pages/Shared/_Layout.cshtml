@@ -1,0 +1,202 @@
+@inject Dorm.Services.ISessionService SessionService
+@{
+    var currentUser = SessionService.GetCurrentUser();
+    var isLoggedIn = SessionService.IsLoggedIn;
+    var isAdmin = SessionService.IsAdmin;
+    var isTenant = SessionService.IsTenant;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Dormitory & Boarding House System</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom Theme Styles -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Ambient Lighting Effect -->
+    <div class="ambient-glow"></div>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dorm">
+            <div class="container-fluid px-lg-4">
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-area="" asp-page="/Index">
+                    <span class="brand-badge">
+                        <i class="bi bi-building-check fs-5"></i>
+                    </span>
+                    <div>
+                        <span class="fw-bold brand-font text-white fs-5 tracking-tight d-block lh-1">DORM</span>
+                        <small class="text-muted" style="font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;">Management Hub</small>
+                    </div>
+                </a>
+
+                <button class="navbar-toggler border-0 text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="bi bi-list fs-2"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3 gap-1">
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString() == "/Index" ? "active" : "")" asp-area="" asp-page="/Index">
+                                <i class="bi bi-door-open me-1"></i> Available Rooms
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-badge me-1"></i> Tenant Portal
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark border-secondary shadow-lg">
+                                <li><a class="dropdown-item py-2" asp-page="/Tenant/Dashboard"><i class="bi bi-speedometer2 me-2 text-info"></i> Tenant Dashboard</a></li>
+                                <li><a class="dropdown-item py-2" asp-page="/Tenant/Payments"><i class="bi bi-credit-card-2-front me-2 text-success"></i> Pay Rent & Billing (SOA)</a></li>
+                                <li><a class="dropdown-item py-2" asp-page="/Tenant/Maintenance"><i class="bi bi-tools me-2 text-warning"></i> Report Maintenance</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-shield-lock me-1"></i> Admin & Manager
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark border-secondary shadow-lg">
+                                <li><a class="dropdown-item py-2" asp-page="/Admin/Dashboard"><i class="bi bi-graph-up-arrow me-2 text-primary"></i> Executive Dashboard</a></li>
+                                <li><a class="dropdown-item py-2" asp-page="/Admin/Rooms"><i class="bi bi-houses me-2 text-info"></i> Room Inventory</a></li>
+                                <li><a class="dropdown-item py-2" asp-page="/Admin/Reservations"><i class="bi bi-calendar2-check me-2 text-warning"></i> Reservations Queue</a></li>
+                                <li><a class="dropdown-item py-2" asp-page="/Admin/Leases"><i class="bi bi-file-earmark-text me-2 text-secondary"></i> Active Leases</a></li>
+                                <li><a class="dropdown-item py-2" asp-page="/Admin/Financials"><i class="bi bi-cash-stack me-2 text-success"></i> Financial Reports</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- Right Side Actions & User Status -->
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- API Live Heartbeat Status Indicator -->
+                        <div class="d-none d-xl-flex align-items-center gap-2 px-3 py-1 rounded-pill" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25);">
+                            <span class="spinner-grow spinner-grow-sm text-success" style="width: 0.5rem; height: 0.5rem;" role="status"></span>
+                            <span class="text-success fw-semibold" style="font-size: 0.75rem;">API: localhost:5210 Live</span>
+                        </div>
+
+                        @if (isLoggedIn && currentUser != null)
+                        {
+                            <!-- Role Switcher & User Profile Menu -->
+                            <div class="dropdown">
+                                <button class="btn btn-glass d-flex align-items-center gap-2 dropdown-toggle py-1 px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" 
+                                         style="width: 28px; height: 28px; background: @(isAdmin ? "var(--grad-primary)" : "var(--grad-emerald)"); font-size: 0.8rem;">
+                                        @(currentUser.FullName.Length > 0 ? currentUser.FullName[0].ToString() : "U")
+                                    </div>
+                                    <div class="text-start d-none d-sm-block">
+                                        <div class="fw-semibold text-white lh-1" style="font-size: 0.85rem;">@currentUser.FullName</div>
+                                        <small class="text-muted" style="font-size: 0.7rem;">@currentUser.Role</small>
+                                    </div>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark border-secondary shadow-lg">
+                                    <li class="px-3 py-2 border-bottom border-secondary">
+                                        <div class="fw-bold text-white">@currentUser.FullName</div>
+                                        <small class="text-muted">@currentUser.Email</small>
+                                    </li>
+                                    <li><h6 class="dropdown-header text-uppercase text-xs text-muted">Quick Role Switch</h6></li>
+                                    <li>
+                                        <form method="post" asp-page="/Account/Login" asp-page-handler="QuickSwitch" class="px-2">
+                                            <input type="hidden" name="username" value="john_doe" />
+                                            <button type="submit" class="dropdown-item rounded py-1 mb-1 @(isTenant ? "active" : "")">
+                                                <i class="bi bi-person me-2"></i> Tenant View (John Doe)
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form method="post" asp-page="/Account/Login" asp-page-handler="QuickSwitch" class="px-2">
+                                            <input type="hidden" name="username" value="admin_maria" />
+                                            <button type="submit" class="dropdown-item rounded py-1 mb-1 @(isAdmin ? "active" : "")">
+                                                <i class="bi bi-shield-check me-2"></i> Admin View (Maria Santos)
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li><hr class="dropdown-divider border-secondary"></li>
+                                    <li>
+                                        <a class="dropdown-item text-danger" asp-page="/Account/Login" asp-page-handler="Logout">
+                                            <i class="bi bi-box-arrow-right me-2"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="d-flex align-items-center gap-2">
+                                <a asp-page="/Account/Login" class="btn btn-glass btn-sm">Sign In</a>
+                                <a asp-page="/Account/Register" class="btn btn-primary-gradient btn-sm">Sign Up</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Body View -->
+    <div class="flex-grow-1 position-relative z-1">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Global Toast Container -->
+    <div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;"></div>
+
+    <!-- Premium Footer -->
+    <footer class="dorm-footer">
+        <div class="container-fluid px-lg-5">
+            <div class="row g-4 align-items-center pb-4 border-bottom border-secondary border-opacity-25">
+                <div class="col-md-6 text-center text-md-start">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-2">
+                        <span class="brand-badge" style="width: 32px; height: 32px;">
+                            <i class="bi bi-building-check fs-6"></i>
+                        </span>
+                        <span class="fw-bold brand-font text-white fs-5">Boarding House & Dormitory System</span>
+                    </div>
+                    <p class="text-muted small mb-0" style="max-width: 500px;">
+                        Integrated Masteral Project Architecture bridging ASP.NET Core Web API, MySQL relational persistence, and dynamic Razor Client Pages.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="d-flex justify-content-center justify-content-md-end gap-3 text-secondary small">
+                        <a asp-page="/Index" class="text-decoration-none text-secondary hover-white">Available Rooms</a>
+                        <span>&bull;</span>
+                        <a asp-page="/Tenant/Payments" class="text-decoration-none text-secondary hover-white">Rent Billing</a>
+                        <span>&bull;</span>
+                        <a asp-page="/Admin/Dashboard" class="text-decoration-none text-secondary hover-white">Admin Console</a>
+                        <span>&bull;</span>
+                        <a href="http://localhost:5210/swagger" target="_blank" class="text-decoration-none text-info">
+                            <i class="bi bi-code-slash me-1"></i>Swagger API
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center pt-3 text-muted small">
+                <div>&copy; 2026 Boarding House Management System &mdash; Master of Information Technology Project</div>
+                <div class="d-flex align-items-center gap-3 mt-2 mt-sm-0">
+                    <span><i class="bi bi-shield-fill-check text-success me-1"></i> RESTful API v1</span>
+                    <span><i class="bi bi-database text-info me-1"></i> MySQL DB</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Dynamic API Module -->
+    <script type="module" src="~/js/dorm-api.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

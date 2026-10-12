@@ -1,0 +1,122 @@
+@HostAddress = http://localhost:5210
+
+### 1. View Dashboard Statistics
+GET {{HostAddress}}/api/dashboard/stats
+Accept: application/json
+
+### 2. View All Available Rooms (with optional filters)
+GET {{HostAddress}}/api/rooms/available?roomType=&maxRate=6000
+Accept: application/json
+
+### 3. View All Rooms
+GET {{HostAddress}}/api/rooms
+Accept: application/json
+
+### 4. Create / Add a New Room
+POST {{HostAddress}}/api/rooms
+Content-Type: application/json
+
+{
+  "dormitoryId": 1,
+  "roomNumber": "Room 105",
+  "roomType": "Single Private",
+  "capacity": 1,
+  "monthlyRate": 4800.00,
+  "status": "Available"
+}
+
+### 5. Pay Rent (Pay rent for an active lease)
+POST {{HostAddress}}/api/payments
+Content-Type: application/json
+
+{
+  "leaseId": 1,
+  "amountPaid": 4500.00,
+  "paymentMethod": "GCash",
+  "referenceNumber": "GCASH-SAMPLE-12345"
+}
+
+### 6. View All Rent Payments
+GET {{HostAddress}}/api/payments
+Accept: application/json
+
+### 7. View Rent Payments & Statement of Account for a Specific Lease
+GET {{HostAddress}}/api/payments/lease/1
+Accept: application/json
+
+### 8. View Payment Summary / Financial Metrics
+GET {{HostAddress}}/api/payments/summary
+Accept: application/json
+
+### 9. View All Active Leases
+GET {{HostAddress}}/api/leases/active
+Accept: application/json
+
+### 10. Check-In Tenant / Create New Lease
+POST {{HostAddress}}/api/leases
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "roomId": 3,
+  "startDate": "2026-10-12T00:00:00Z",
+  "endDate": "2027-04-12T00:00:00Z",
+  "status": "Active"
+}
+
+### 11. Check-Out Tenant / Terminate Lease
+POST {{HostAddress}}/api/leases/1/terminate
+Accept: application/json
+
+### 12. View Reservations
+GET {{HostAddress}}/api/reservations
+Accept: application/json
+
+### 13. Create Room Reservation
+POST {{HostAddress}}/api/reservations
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "roomId": 2,
+  "status": "Pending"
+}
+
+### 14. Approve Reservation
+PUT {{HostAddress}}/api/reservations/1/approve
+Accept: application/json
+
+### 15. View Maintenance Requests
+GET {{HostAddress}}/api/maintenancerequests
+Accept: application/json
+
+### 16. Submit Maintenance Issue
+POST {{HostAddress}}/api/maintenancerequests
+Content-Type: application/json
+
+{
+  "roomId": 1,
+  "userId": 2,
+  "issueDescription": "Air conditioning unit is not blowing cold air.",
+  "status": "Pending"
+}
+
+### 17. Update Maintenance Request Status to Resolved
+PUT {{HostAddress}}/api/maintenancerequests/1/status
+Content-Type: application/json
+
+{
+  "status": "Resolved"
+}
+
+### 18. View All Dormitory Buildings & Occupancy
+GET {{HostAddress}}/api/dormitories
+Accept: application/json
+
+### 19. View Users / Tenants
+GET {{HostAddress}}/api/users?role=Tenant
+Accept: application/json
+
+### 20. Reseed Sample Test Data
+POST {{HostAddress}}/api/seed/reset
+Accept: application/json
